@@ -5,14 +5,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
-import { registerLocaleData } from '@angular/common';
-// import localeZh from '@angular/common/locales/zh';
-// registerLocaleData(localeZh);
-
-// import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
 
 import { AlainThemeModule } from '@delon/theme';
+import { DELON_LOCALE, en_US as de_en_US } from '@delon/theme';
 import { DelonABCModule } from '@delon/abc';
 import { DelonChartModule } from '@delon/chart';
 import { DelonFormModule } from '@delon/form';
@@ -69,6 +65,7 @@ import { AppComponent } from './app.component';
       deps: [StartupService],
       multi: true
     },
+    { provide: DELON_LOCALE, useValue: de_en_US },
     { provide: NZ_I18N, useValue: en_US }
   ],
   declarations: [AppComponent],
