@@ -6,8 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { registerLocaleData } from '@angular/common';
-import localeZh from '@angular/common/locales/zh';
-registerLocaleData(localeZh);
+// import localeZh from '@angular/common/locales/zh';
+// registerLocaleData(localeZh);
 
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { AlainThemeModule } from '@delon/theme';

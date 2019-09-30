@@ -2,6 +2,8 @@ import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import { STColumn } from '@delon/abc';
 import { SFSchema, SFComponent } from '@delon/form';
+// import { SFRadioWidgetSchema } from '@delon/form';
+
 
 @Component({
   selector: 'my-app',
@@ -17,62 +19,68 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   formData: any = {};
   schema: SFSchema = {
-    properties: {},
-    ui: {}
-  };
+    properties: {
+      type:{
+        type: "string",
+        title: "Type of bid",
+        enum: [
+          { label: 'Limited', value: 'limited' },
+          { label: 'Single', value: 'single' }
+        ],
+        default: 'limited',
+      },
+      sub_type:{
+        type: "string",
+        title: "Type of bid",
+        enum: [
+          { label: 'RFP (Single Stage Bidding)', value: 'single_stage_bidding' },
+          { label: 'RFP (Multi Stage Bidding)', value: 'multi_stage_bidding' },
+        ],
+        default: 'single_stage_bidding',
+      },
+      title:{
+        type: "string",
+        title: "Title/ Name of the Bid",
+      },
+      sector:{
+        type: "string",
+        title: "Choose sector of the Bid",
+        enum: [
+          { label: 'Consulting', value: 'consulting' }
+        ],
+        default: 'consulting',
+      },
+      validity_days:{
+        type: "number",
+        title: "Duration of the Bid (Days)",
+      },
+      bid_value:{
+        type: "object",
+        title: "Duration of the Bid (Days)",
+        properties: {
+            type: { 
+              type: 'string',
+              enum: [
+                { label: 'Absolute (Lakhs)', value: 'absolute' },
+                { label: 'Commission (%)', value: 'comission' }
+              ],
+            },
+            value: { type: 'number' },
+            // currency: { type: 'string', default: 'INR' }
+        }
+      },
+    },
+    required: [ 'type', 'sub_type' ],
+    ui: {
+      spanLabel: 4,
+      spanControl: 5
+    }
 
-  liveValidate = true;
-  firstVisual = true;
+  };
 
   constructor(public msg: NzMessageService) { }
 
-  ngAfterViewInit(): void {
-    let tempSchema: SFSchema = {
-      properties: {
-        field_str: {
-          type: 'string',
-        },
-        date: {
-          type: 'string',
-          title: '时间',
-          format: 'date'
-        },
-        product: {
-          type: 'array',
-          title: '产品清单',
-          maxItems: 4,
-          items: {
-            type: 'object',
-            properties: {
-              name: {
-                type: 'string',
-                title: '名称'
-              },
-              date: {
-                type: 'string',
-                title: '时间',
-                format: 'date'
-              }
-            },
-            required: ['name', 'date']
-          },
-          ui: { grid: { arraySpan: 12 } }
-        }
-      },
-      required: [],
-      ui: {
-        spanLabel: 4
-      }
-    }
-
-    this.sf.refreshSchema(tempSchema);
-    let productdata = {};
-    productdata['name'] = '名称';
-    productdata['date'] = '2018-11-12';
-    this.sf.rootProperty['properties']['product'].widget.formProperty.add(productdata);
-    this.sf.rootProperty['properties']['date'].setValue('2011-11-11',false);
-    this.sf.rootProperty['properties']['date'].resetValue('2011-11-11',false);
-  }
+  ngAfterViewInit(): void { }
 
   formValid() {
     this.msg.info('valid : ' + this.sf.valid);
