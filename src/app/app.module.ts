@@ -9,7 +9,9 @@ import { registerLocaleData } from '@angular/common';
 // import localeZh from '@angular/common/locales/zh';
 // registerLocaleData(localeZh);
 
-import { NgZorroAntdModule } from 'ng-zorro-antd';
+// import { NgZorroAntdModule } from 'ng-zorro-antd';
+import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
+
 import { AlainThemeModule } from '@delon/theme';
 import { DelonABCModule } from '@delon/abc';
 import { DelonChartModule } from '@delon/chart';
@@ -66,7 +68,8 @@ import { AppComponent } from './app.component';
       useFactory: StartupServiceFactory,
       deps: [StartupService],
       multi: true
-    }
+    },
+    { provide: NZ_I18N, useValue: en_US }
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent]
